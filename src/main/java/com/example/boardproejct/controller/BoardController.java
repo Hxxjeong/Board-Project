@@ -77,7 +77,7 @@ public class BoardController {
     public String updateForm(@RequestParam Long id, Model model) {
         Board board = boardService.findBoardById(id);
         model.addAttribute("board", board);
-        return "/boards/update";
+        return "boards/update";
     }
 
     // 게시글 수정
