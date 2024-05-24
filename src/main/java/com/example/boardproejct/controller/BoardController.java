@@ -7,10 +7,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -50,6 +48,27 @@ public class BoardController {
     public String createBoard(Model model, Board board) {
         Board b = boardService.createBoard(board);
         model.addAttribute("board", b);
+        return "redirect:/boards";
+    }
+
+    // 게시글 삭제 form
+    @GetMapping("/deleteform")
+    public String deleteForm(@RequestParam Long id, Model model) {
+        Board board = boardService.findBoardById(id);
+        model.addAttribute("board", board);
+        return "boards/delete";
+    }
+
+    // 게시글 삭제
+    @PostMapping("/boards/delete")
+    public String deleteBoard(@ModelAttribute Board board, RedirectAttributes redirectAttributes) {
+        try {
+            boardService.deleteBoardById(board.getId(), board.getPassword());
+        }
+        catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+            return "redirect:/deleteform?id=" + board.getId();
+        }
         return "redirect:/boards";
     }
 }

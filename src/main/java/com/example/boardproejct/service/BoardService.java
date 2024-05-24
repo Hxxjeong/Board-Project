@@ -36,4 +36,17 @@ public class BoardService {
     public Board createBoard(Board board) {
         return boardRepository.save(board);
     }
+
+    // 게시글 삭제
+    @Transactional
+    public void deleteBoardById(Long id, String password) {
+        Board board = boardRepository.findById(id).orElse(null);
+
+        // 비밀번호가 일치하면 삭제
+        if(board.getPassword().equals(password)) {
+            boardRepository.deleteById(id);
+        }
+        else
+            throw new IllegalArgumentException();
+    }
 }

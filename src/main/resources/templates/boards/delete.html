@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 삭제</title>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var errorMessage = /*[[${errorMessage}]]*/ '';
+        if (errorMessage) {
+            alert(errorMessage);
+        }
+        /*]]>*/
+    </script>
+</head>
+<body>
+<h2>Delete Board</h2>
+<form method="post" th:action="@{/boards/delete}" th:object="${board}">
+    <input type="hidden" th:field="*{id}">
+
+    <label for="password">password:</label>
+    <input type="password" id="password" th:field="*{password}" required>
+
+    <button type="submit">Delete</button>
+</form>
+<a th:href="@{/boards}">List</a>
+</body>
+</html>
