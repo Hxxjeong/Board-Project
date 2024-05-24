@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -48,7 +49,7 @@ public class BoardController {
     public String createBoard(Model model, Board board) {
         Board b = boardService.createBoard(board);
         model.addAttribute("board", b);
-        return "redirect:/boards";
+        return "redirect:/list";
     }
 
     // 게시글 삭제 form
@@ -69,7 +70,7 @@ public class BoardController {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/deleteform?id=" + board.getId();
         }
-        return "redirect:/boards";
+        return "redirect:/list";
     }
 
     // 게시글 수정 form
@@ -90,6 +91,6 @@ public class BoardController {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/updateform?id=" + board.getId();
         }
-        return "redirect:/boards";
+        return "redirect:/list";
     }
 }
