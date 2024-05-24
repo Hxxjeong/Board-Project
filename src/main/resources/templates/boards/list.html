@@ -26,7 +26,7 @@
     </tbody>
 </table>
 
-<div th:if="${boards.totalPages > 1}">
+<div th:if="${boards.totalPages > 1}" class="page">
     <ul>
         <li th:each="i:${#numbers.sequence(1, boards.totalPages)}">
             <a th:href="@{/list(page=${i})}" th:text="${i}"></a>
