@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/form.css}" />
 </head>
 <body>
 <h2 th:text="${board.title}"></h2>
-<div><strong>Name: </strong><span th:text="${board.name}"></span></div>
-<div><strong>Content: </strong><span th:text="${board.content}"></span></div>
-<div><strong>Created At: </strong><span th:text="${#temporals.format(board.createdAt, 'yyyy/MM/dd HH:mm')}"></span></div>
-<div><strong>Updated At: </strong><span th:text="${#temporals.format(board.updatedAt, 'yyyy/MM/dd HH:mm')}"></span></div>
+<div class="box">
+    <div><strong>Name: </strong><span th:text="${board.name}"></span></div>
+    <div><strong>Content: </strong><span th:text="${board.content}"></span></div>
+    <div><strong>Created At: </strong><span th:text="${#temporals.format(board.createdAt, 'yyyy/MM/dd HH:mm')}"></span></div>
+    <div><strong>Updated At: </strong><span th:text="${#temporals.format(board.updatedAt, 'yyyy/MM/dd HH:mm')}"></span></div>
+</div>
 <a th:href="@{/boards}">List</a>
 <a th:href="@{/updateform(id=${board.id})}">Edit</a>
 <a th:href="@{/deleteform(id=${board.id})}">Delete</a>
