@@ -16,7 +16,7 @@ public class BoardController {
     private final BoardService boardService;
 
     // 페이징 처리된 게시글 목록 보기
-    @GetMapping("/boards")
+    @GetMapping("/list")
     public String boardList(Model model,
                             @RequestParam(defaultValue = "1") int page,
                             @RequestParam(defaultValue = "5") int size) {
