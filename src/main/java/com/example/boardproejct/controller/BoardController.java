@@ -66,8 +66,29 @@ public class BoardController {
             boardService.deleteBoardById(board.getId(), board.getPassword());
         }
         catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 틀렸습니다.");
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/deleteform?id=" + board.getId();
+        }
+        return "redirect:/boards";
+    }
+
+    // 게시글 수정 form
+    @GetMapping("/updateform")
+    public String updateForm(@RequestParam Long id, Model model) {
+        Board board = boardService.findBoardById(id);
+        model.addAttribute("board", board);
+        return "/boards/update";
+    }
+
+    // 게시글 수정
+    @PostMapping("/boards/update")
+    public String updateBoard(@ModelAttribute Board board, RedirectAttributes redirectAttributes) {
+        try {
+            boardService.updateBoard(board.getId(), board, board.getPassword());
+        }
+        catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/updateform?id=" + board.getId();
         }
         return "redirect:/boards";
     }

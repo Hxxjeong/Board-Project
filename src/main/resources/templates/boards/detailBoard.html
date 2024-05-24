@@ -9,8 +9,9 @@
 <div><strong>Name: </strong><span th:text="${board.name}"></span></div>
 <div><strong>Content: </strong><span th:text="${board.content}"></span></div>
 <div><strong>Created At: </strong><span th:text="${#temporals.format(board.createdAt, 'yyyy/MM/dd HH:mm')}"></span></div>
+<div><strong>Updated At: </strong><span th:text="${#temporals.format(board.updatedAt, 'yyyy/MM/dd HH:mm')}"></span></div>
 <a th:href="@{/boards}">List</a>
-<a th:href="@{/boards}">Edit</a>
+<a th:href="@{/updateform(id=${board.id})}">Edit</a>
 <a th:href="@{/deleteform(id=${board.id})}">Delete</a>
 </body>
 </html>

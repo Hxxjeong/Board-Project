@@ -28,7 +28,7 @@ public class BoardService {
     // 게시글 1개 조회
     public Board findBoardById(Long id) {
         return boardRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("해당하는 사용자가 없습니다."));
+                .orElseThrow(() -> new NoSuchElementException("해당하는 게시글이 없습니다."));
     }
 
     // 게시글 등록
@@ -47,6 +47,24 @@ public class BoardService {
             boardRepository.deleteById(id);
         }
         else
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+    }
+
+    // 게시글 수정
+    public void updateBoard(Long id, Board updatedBoard, String password) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("해당하는 게시글이 없습니다."));
+
+        // 비밀번호 일치 여부 확인
+        if(!board.getPassword().equals(password)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        // 기존 게시글 업데이트
+        board.setName(updatedBoard.getName());
+        board.setTitle(updatedBoard.getTitle());
+        board.setContent(updatedBoard.getContent());
+
+        boardRepository.save(board);
     }
 }
