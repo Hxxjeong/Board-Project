@@ -37,4 +37,19 @@ public class BoardController {
         model.addAttribute("board", board);
         return "boards/detailBoard";
     }
+
+    // 게시글 등록 폼
+    @GetMapping("/writeform")
+    public String writeForm(Model model) {
+        model.addAttribute("board", new Board());
+        return "boards/create";
+    }
+
+    // 게시글 등록
+    @PostMapping("/writeform")
+    public String createBoard(Model model, Board board) {
+        Board b = boardService.createBoard(board);
+        model.addAttribute("board", b);
+        return "redirect:/boards";
+    }
 }
