@@ -28,4 +28,13 @@ public class BoardController {
         model.addAttribute("currentPage", page);
         return "boards/list";
     }
+
+    // 게시글 1개 보기
+    @GetMapping("/view")
+    public String fineBoard(Model model,
+                            @RequestParam Long id) {
+        Board board = boardService.findBoardById(id);
+        model.addAttribute("board", board);
+        return "boards/detailBoard";
+    }
 }
