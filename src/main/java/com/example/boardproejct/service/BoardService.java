@@ -51,6 +51,7 @@ public class BoardService {
     }
 
     // 게시글 수정
+    @Transactional
     public void updateBoard(Long id, Board updatedBoard, String password) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("해당하는 게시글이 없습니다."));
